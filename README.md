@@ -1,40 +1,23 @@
-Introduction
+引言
 ============
 
-VxKex is a set of API extensions for Windows 7 that allow some Windows 8,
-8.1 and 10-exclusive applications to run on Windows 7.
-
-To download and install, see the [releases page](https://github.com/i486/VxKex/releases).
-
-After installation, usage is easy: just right click on a program (.exe or .msi),
-open the Properties dialog, and select the VxKex tab. Then, check the check box
-which says "Enable VxKex for this program", and try to run the program.
-
-![VxKex configuration GUI](/example-screenshot.png)
-
-Some programs require additional configuration. There's a file called **"Application
-Compatibility List.docx"** inside the VxKex installation folder (which is C:\Program
-Files\VxKex by default) which details these steps, but for the most part, all
-configuration is self-explanatory.
-
-If you are a developer, source code is provided as a 7z file on the releases page.
-
-FAQ
+VxKex 是一套适用于 Windows 7 的 API 扩展工具，可让部分仅支持 Windows 8、8.1 和 10 的应用程序在 Windows 7 上运行。
+如需下载和安装，请访问 [发布页面](https://github.com/i486/VxKex/releases)。
+安装完成后，使用方法非常简单：只需右键点击某个程序（.exe 或 .msi 文件），打开属性对话框，选择 VxKex 标签页，然后勾选“为该程序启用 VxKex”复选框，即可尝试运行该程序。
+![VxKex 配置 GUI](/example-screenshot.png)  
+某些程序需要额外的配置。VxKex 安装文件夹（默认为 C:\Program Files\VxKex）中有一个名为“Application Compatibility List.docx”的文件，详细说明了这些步骤，但大多数情况下，所有配置都较为直观易懂。  
+如果您是开发者，源代码将以 7z 文件形式提供在发布页面上。
+常见问题
 ===
-
-**Q: Does it work for games???**
-
-**A:** At the moment, VxKex is not intended for games, so you will probably have limited
-success. I hope to address this shortcoming in a future release.
-
-**Q: What applications are supported?**
-
-**A:** The list of compatible applications includes, but is not limited to:
+**问：它适用于游戏吗？****
+**A：** 目前，VxKex 并不适用于游戏，因此你可能取得的成果有限。我希望在未来的版本中解决这一不足。
+**Q：支持哪些应用程序？****
+**A：** 兼容的应用程序列表包括但不限于：
 - Bespoke Synth
 - Blender
 - Blockbench
 - Calibre
-- Chromium (including Ungoogled Chromium)
+- Chromium（包括非谷歌浏览器Chromium）
 - Citra
 - Commander Wars
 - Cygwin
@@ -42,7 +25,7 @@ success. I hope to address this shortcoming in a future release.
 - Discord Canary
 - ElectronMail
 - Firefox
-- GIMP (2.99.18)
+- GIMP（2.99.18）
 - GitHub Desktop
 - HandBrake
 - Kodi
@@ -51,75 +34,42 @@ success. I hope to address this shortcoming in a future release.
 - MongoDB
 - MPC-Qt
 - MPV
-- MPV.NET
-- Opera
-- osu!lazer
-- Python
-- qBittorrent
-- QMMP
-- Qt Creator
-- Rufus
-- Steel Bank Common Lisp
-- Spotify
-- Steinberg SpectraLayers
-- TeamTalk
-- VSCode and VSCodium
-- WinDbg (classic from Windows 11 SDK, and preview)
-- Yuzu (gameplay was not tested)
-- Zig
+- MPV网
+- 好歌
+- osu!激光
+- Python  
+- qBittorrent  
+- QMMP  
+- Qt Creator  
+- Rufus  
+- Steel Bank Common Lisp  
+- Spotify  
+- Steinberg SpectraLayers  
+- TeamTalk  
+- VSCode 和 VSCodium  
+- WinDbg（Windows 11 SDK 中的经典版本及预览版）  
+- Yuzu（游戏玩法未测试）  
+- Zig  
 
-See the **Application Compatibility List.docx** file, which is installed together
-with VxKex, for more information.
-
-The majority of Qt6 applications will work, and many Electron applications will
-work as well.
-
-**Q: Does VxKex modify system files? Will it make my system unstable?**
-
-**A:** VxKex does not modify any system files. Its effect on the whole system is
-extremely minimal. No background services are used, no global hooks are
-installed, and the shell extensions and DLLs that are loaded have minimal
-impact and can be disabled if needed. You can rest assured that your Windows 7
-will remain as stable as it always is.
-
-**Q: Do I need to have specific updates installed?**
-
-**A:** VxKex is only designed to work with Service Pack 1 installed. Users of
-Windows 7 RTM can try to use it, but I don't know if it will install or work.
-Many programs require KB2533623 and KB2670838 in order to run. It is a good
-idea to install those two updates.
-
-**Q: If I have ESUs (Extended Security Updates) installed, can I use VxKex?**
-
-**A:** Yes. There is no problem with ESUs.
-
-**Q: Do console applications work with VxKex?**
-
-**A:** Yes. After you have enabled VxKex for a program you can use it through the
-command prompt as normal.
-
-**Q: Can I use this with Windows 8 or 8.1?**
-
-**A:** VxKex is designed for use only with Windows 7. If you use Windows 8 or 8.1,
-it's unlikely that VxKex will do anything useful, but you're free to install it
-anyway and see what happens.
-
-**Q: How does VxKex work?**
-
-**A:** VxKex works by loading a DLL into each program where VxKex is enabled. This
-is accomplished through using the IFEO (Image File Execution Options) registry key.
-
-Specifically, the "VerifierDlls" value is set to point to a VxKex DLL. This DLL then
-loads into the process.
-
-API extension is accomplished by editing the program's DLL import table so that
-instead of importing from Windows 8/8.1/10 DLLs, it imports to VxKex DLLs instead.
-These VxKex DLLs contain implementations of Windows API functions which were introduced
-in newer versions of Windows.
-
-Donations
+更多信息，请参见随 VxKex 一同安装的 **Application Compatibility List.docx** 文件。
+大多数 Qt6 应用程序都能正常运行，许多 Electron 应用程序也同样适用。
+*问：VxKex 是否会修改系统文件？会不会导致系统不稳定？****
+*答：** VxKex 不会修改任何系统文件，对整个系统的整体影响极小。它不使用任何后台服务，也不会安装全局钩子，所加载的 shell 扩展和 DLL 也仅产生最小影响，必要时可将其禁用。您可以放心，您的 Windows 7 将保持一如既往的稳定。
+*问：我是否需要安装特定的更新？****
+*答：** VxKex 仅适用于已安装 Service Pack 1 的系统。Windows 7 RTM 用户可以尝试使用，但不确定是否能成功安装或运行。许多程序在运行时需要 KB2533623 和 KB2670838 更新，因此建议安装这两个补丁。
+*问：如果我已安装扩展安全更新（ESUs），还能使用 VxKex 吗？****
+*答：** 是的，ESU 没有问题。
+*问：控制台应用程序能与 VxKex 共同工作吗？****
+*答：** 是的。在为某个程序启用 VxKex 后，您就可以像平常一样通过命令提示符使用它。
+*问：** 我可以使用这个功能吗？Windows 8 或 8.1 是否支持？**
+*答：** VxKex 仅适用于 Windows 7。如果您使用的是 Windows 8 或 8.1，VxKex 很可能无法正常工作，但您可以尝试安装它，看看会发生什么。
+*问：VxKex 是如何工作的？****
+*答：** VxKex 的工作原理是将一个 DLL 加载到每个启用 VxKex 的程序中。这个
+通过使用IFEO（图像文件执行选项）注册表键来实现。  
+具体来说，将“VerifierDlls”值设置为指向一个VxKex DLL，该DLL随后加载到进程中。  
+API扩展是通过编辑程序的DLL导入表来实现的，使其不再从Windows 8/8.1/10的DLL中导入，而是转而导入VxKex DLL。这些VxKex DLL包含了在较新版本Windows中引入的Windows API函数的实现。
+捐赠
 =========
 
-If you would like to support development, consider making a donation.
-
+如果您希望支持开发，可以考虑进行捐赠。  
 - https://paypal.me/vxiiduu
